@@ -1,18 +1,18 @@
 package io.urlshortener.short_url.DataAccessLayer;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
+@Table(name= "url_mapping")
 public class URL {
 
     public URL(String longUrl) {
         this.longUrl= longUrl;
     }
+
+    public URL() {}
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,7 +26,7 @@ public class URL {
     private String longUrl;
 
     public String setShortUrl(String longUrl) {
-        this.shortUrl= longUrl.split("/")[0];
+        this.shortUrl = longUrl.split("/")[2];
         return shortUrl;
     }
 
