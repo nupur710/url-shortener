@@ -9,7 +9,7 @@ public class SHA256 {
         byte[] b= input.getBytes();
         //calculate len of byteArr
         int x= 0, len= 0;
-        while(x <= 512) {
+        while(x < 512) {
             if(((b.length*8) +1 + x + 64) % 512 == 0) {
                 break;
             } x++;
@@ -71,5 +71,17 @@ public class SHA256 {
             messageSchedule[j] = (input.get(i) << 24) | (input.get(i + 1) << 16) | (input.get(i + 2) << 8) | input.get(i + 3);
             j++;
         }
+
+        for(int i= 16; i< messageSchedule.length; i++) {
+            int s0= (rightRotate(messageSchedule[i-15], 7)) ^ (rightRotate(messageSchedule[i-15], 18)) ^ (messageSchedule[i-15]>>>3);
+            int s1= (rightRotate(messageSchedule[i-2], 7)) ^ (rightRotate(messageSchedule[i-2], 19)) ^ (messageSchedule[i-2]>>>10);
+            messageSchedule[i]= messageSchedule[i-16] + s0 + messageSchedule[i-7] + s1;
+        }
+    }
+
+    public static int rightRotate(int n, int d) {
+        int bits= 32;
+        d= d % 32; //for when d > 32
+        return (n >>> d) | (n << (bits-d));
     }
 }
