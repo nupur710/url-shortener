@@ -1,4 +1,4 @@
-package Response;
+package io.urlshortener.short_url.Response;
 
 import lombok.Getter;
 import lombok.Setter;

@@ -1,8 +1,10 @@
 package io.urlshortener.short_url.DataAccessLayer;
 
+import io.urlshortener.short_url.Hashing.SHA256;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Entity
 @Table(name= "url_mapping")
@@ -26,7 +28,8 @@ public class URL {
     private String longUrl;
 
     public String setShortUrl(String longUrl) {
-        this.shortUrl = longUrl.split("/")[2];
+        SHA256 sha256= new SHA256();
+        this.shortUrl = sha256.chunkLoops(longUrl);
         return shortUrl;
     }
 
