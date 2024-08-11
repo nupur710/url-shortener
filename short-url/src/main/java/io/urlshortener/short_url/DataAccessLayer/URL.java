@@ -12,6 +12,7 @@ public class URL {
 
     public URL(String longUrl) {
         this.longUrl= longUrl;
+        setShortUrl(longUrl);
     }
 
     public URL() {}
@@ -29,8 +30,8 @@ public class URL {
 
     public String setShortUrl(String longUrl) {
         SHA256 sha256= new SHA256();
-        this.shortUrl = sha256.chunkLoops(longUrl);
-        return shortUrl;
+        this.shortUrl= "http://localhost:8080/" + sha256.chunkLoops(longUrl);
+        return this.shortUrl;
     }
 
     public String toString() {
